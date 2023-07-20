@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>About Us</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        /* Header Styles */
+        header {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-right: 20px;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links li a:hover {
+            color: #f8c947;
+            /* Change to your desired hover color */
+        }
+
+        .burger {
+            display: none;
+        }
+
+        /* Content Styles */
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-brand">PRmePRed</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/">Home</a></li>
+                <li><a href="/dataset.html">Dataset</a></li>
+                <li><a href="/help.html">Help</a> </li>
+                <li><a href="/contact.html">Contact</a></li>
+            </ul>
+            <div class="burger" onclick="toggleNav()">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="content">
+        <h1>About Us</h1>
+        <p>
+            PRmePRed is a powerful prediction tool based on Support Vector Machine (SVM) that accurately predicts
+            arginine methylation sites in proteins. In eukaryotes, protein arginine methylation plays a vital role in
+            various important biological processes. PRMTs (Protein arginine methyltransferases) are responsible for
+            methylating a diverse range of substrates, including histones, transcription factors, and several proteins
+            involved in RNA processing, transport, and translation. By utilizing sequence and structure-based
+            properties, this SVM-based classifier has been developed to effectively identify potential arginine
+            methylation sites in proteins.
+            The performance of PRmePRed is quite promising, achieving an accuracy of 84.10% in 10-fold cross-validation.
+            The tool exhibits high sensitivity (82.38%) and specificity (83.77%), indicating its ability to correctly
+            identify true positive and true negative instances. The Matthew's correlation coefficient of 0.7 further
+            validates its reliability in making precise predictions.
+            With its remarkable accuracy and robustness, PRmePRed can significantly aid researchers and biologists in
+            understanding the functional implications of arginine methylation in various biological pathways and
+            processes. By highlighting potential methylation sites, this tool contributes to the exploration of novel
+            regulatory mechanisms and facilitates the discovery of key protein targets involved in cellular activities.
+            As such, PRmePRed stands as a valuable asset in advancing our understanding of protein arginine methylation
+            and its impact on cellular functions.
+        </p>
+        <p>
+            Supplementary Information:<a href="/dow.doc" download>Download</a>
+        </p>
+    </div>
+    <script src="indexabout.js"></script>
+</body>
+
+</html>

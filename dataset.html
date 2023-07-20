@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dataset Information</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+        }
+
+        header {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 10px;
+        }
+
+        .navbar {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .navbar-brand {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+        }
+
+        .nav-links li {
+            margin-right: 20px;
+        }
+
+        .nav-links li a {
+            text-decoration: none;
+            color: #fff;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .nav-links li a:hover {
+            color: #f8c947;
+        }
+
+        .burger {
+            display: none;
+        }
+
+        .content {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            border-radius: 5px;
+        }
+
+        .dataset-info p {
+            margin: 10px 0;
+        }
+
+        .dataset-info table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .dataset-info th,
+        .dataset-info td {
+            border: 1px solid #ccc;
+            padding: 8px;
+            text-align: center;
+        }
+
+        .dataset-info th {
+            background-color: #f2f2f2;
+        }
+
+        .dataset-info h2 {
+            margin-top: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar">
+            <div class="navbar-brand">PRmePRed</div>
+            <ul class="nav-links" id="navLinks">
+                <li><a href="/index.html">Home</a></li>
+                <li><a href="/about.html">About</a></li>
+                <li><a href="/help.html">Help</a> </li>
+                <li><a href="/contact.html">Contact</a></li>
+            </ul>
+            <div class="burger" onclick="toggleNav()">
+                <div class="line1"></div>
+                <div class="line2"></div>
+                <div class="line3"></div>
+            </div>
+        </nav>
+    </header>
+    <div class="content">
+        <h1>Dataset Information</h1>
+        <div class="dataset-info">
+            <p>
+                We collected experimentally verified in vivo methylated arginine sites from literature along with those
+                reported in UniProt database[1].
+                We did not consider any in vitro reported methylated sites which had no credible evidence of existence
+                in vivo.
+                The extracted dataset contains 6754 methylation sites from 2077 protein sequences.
+                We removed sites/proteins with ambiguities such as those containing nonstandard amino acids, site
+                mismatches, very small protein fragments (less than 30 aa), and obsolete protein entries.
+                We did not include any methylation sites from PhosphoSitePlus database[2] since it did not provide the
+                exact experimental source and other supporting information for verifying PTM evidence.
+                However, the majority of our methylation data did match with the ones they reported to have extracted
+                from literature.
+            </p>
+
+            <p>
+                We assume that the local environment around methylated arginine, dictated by adjacent flanking residues,
+                plays a major role in substrate selectivity and catalysis by PRMTs.
+                These assumptions arise from observations in which PRMT active sites and certain substrate features
+                complement each other (although not always).
+                For instance, in one substrate, positive flanking residues were shown to affect substrate binding and
+                catalysis by PRMT active site (Osborne 2007)[3].
+                This is supported by the fact that the surface surrounding the active site in some PRMTs has grooves
+                that are acidic in nature.
+                Additionally, many of the known methylated arginine sites hail from either glycine-arginine-rich (GAR)
+                or arginine-rich and proline/serine-rich regions which have been shown to favor arginine methylation.
+                In order to assess the role of flanking residues, we generated symmetric peptide datasets of varying
+                window lengths (7, 11, 15, 19, 23, 27, 31, and 35), all of which were centered on methylated arginine.
+                Since we adopted position-specific feature encoding for model building, therefore it was necessary to
+                fill the ends of peptides which lacked symmetry with an arbitrary 'X' residue that has been the
+                generally accepted norm in some previous prediction classifiers as well.
+            </p>
+
+            <p>
+                We followed the conventional practice of generating a negative set from those sites which are not
+                reported to be methylated in the methylated proteins.
+                Briefly, we first created an unlabeled class of all the arginine sites which were not reported to be
+                methylated from the respective methylated proteins.
+                We termed the set as unlabeled because they may contain potential sites which could be methylated but
+                have not been established yet.
+                Using CD-HIT-2d[4] with a 40% identity cut off, we created a negative set from this unlabeled set by
+                removing sequences which were similar to the positive set.
+            </p>
+
+            <p>
+                There are chances that data will contain highly similar peptide sequences (since 2/3 of the data belongs
+                to human and mouse proteome; and also multiple adjacently placed arginine residues are methylated in
+                sequences which are arginine-rich such as those hailing from GAR peptides).
+                Since most of our features are calculated position-wise thus to reduce any biasness, especially during
+                feature assessment with the training set, we removed similar sequences from both positive and
+                pseudo-negative sets using CD-HIT with a 40% identity cut off.
+                We found that the size of pseudo-negative sets of window lengths 7, 11, and 15 were far lower than the
+                positive set and thus were excluded from the model building task.
+            </p>
+
+            <p>
+                For each window length, the positive dataset was split randomly into a training set and a test set in a
+                4:1 ratio.
+                We also split the negative dataset into a training and a test set (size of the negative test set equal
+                to the positive test set).
+                For window length 19 onwards, we had a larger proportion of the negative training set with respect to
+                the positive training set.
+                Thus, to overcome the class imbalance issue, we opted for under-sampling and created equal subsets of
+                the negative training set in a 1:1 ratio with the positive training set by random sampling.
+                For computational time-saving, we restricted the size of negative training subsets to 5 for each window
+                length.
+                During the course of our work, we accumulated more instances of arginine methylated proteins from recent
+                studies and separately prepared an independent dataset for final evaluation and comparison.
+            </p>
+            <p>
+                Supplementary Information:<a href="/dow.doc" download>Download</a> &nbsp; &nbsp; &nbsp;
+                Datasets:<a href="dataset.zip" download>View</a>
+            </p> 
+        </div>
+        <div class="table-section">
+            <h2>Table 1. Dataset information (after CD-HIT) of different window lengths</h2>
+            <table>
+                <tr>
+                    <th rowspan="2">Window Length</th>
+                    <th colspan="3">Positive Dataset</th>
+                    <th colspan="3">Negative Dataset</th>
+                </tr>
+                <tr>
+                    <th>Complete Set</th>
+                    <th>Training Set (80%)</th>
+                    <th>Test Set (20%)</th>
+                    <th>Complete Set</th>
+                    <th>Training Set</th>
+                    <th>Test Set</th>
+                </tr>
+                <tr>
+                    <td>19</td>
+                    <td>1298</td>
+                    <td>1038</td>
+                    <td>260</td>
+                    <td>5539</td>
+                    <td>5279</td>
+                    <td>260</td>
+                </tr>
+                <tr>
+                    <td>23</td>
+                    <td>1964</td>
+                    <td>1571</td>
+                    <td>393</td>
+                    <td>20004</td>
+                    <td>19611</td>
+                    <td>393</td>
+                </tr>
+                <tr>
+                    <td>27</td>
+                    <td>1845</td>
+                    <td>1476</td>
+                    <td>369</td>
+                    <td>17729</td>
+                    <td>17360</td>
+                    <td>369</td>
+                </tr>
+                <tr>
+                    <td>31</td>
+                    <td>2288</td>
+                    <td>1830</td>
+                    <td>458</td>
+                    <td>31603</td>
+                    <td>31145</td>
+                    <td>458</td>
+                </tr>
+                <tr>
+                    <td>35</td>
+                    <td>2175</td>
+                    <td>1740</td>
+                    <td>435</td>
+                    <td>28250</td>
+                    <td>27815</td>
+                    <td>435</td>
+                </tr>
+            </table>
+            <h2>References:</h2>
+            <ol>
+                <li>
+                    Apweiler R, Bairoch A, Wu CH, Barker WC, Boeckmann B, et al. (2004) UniProt: the Universal Protein
+                    knowledgebase. Nucleic acids research 32: D115-119.
+                </li>
+                <li>
+                    Peter V. Hornbeck, Jon M. Kornhauser, Sasha Tkachev, Bin Zhang, Elżbieta Skrzypek, Beth Murray,
+                    Vaughan Latham and Michael Sullivan. (2011) PhosphoSitePlus: a comprehensive resource for
+                    investigating the structure and function of experimentally determined post-translational
+                    modifications in man and mouse.
+                </li>
+                <li>
+                    Tanesha C. Osborne, Obiamaka Obianyo, Xing Zhang, Xiaodong Cheng, and Paul R. Thompson (2007)
+                    Protein Arginine Methyltransferase 1: Positively Charged Residues in Substrate Peptides Distal to
+                    the Site of Methylation Are Important for Substrate Binding and Catalysis.
+                </li>
+                <li>
+                    Ying Huang, Beifang Niu, Ying Gao, Limin Fu and Weizhong Li. (2010) CD-HIT Suite: a web server for
+                    clustering and comparing biological sequences.
+                </li>
+            </ol>
+        </div>
+    </div>
+</body>
+
+</html>
