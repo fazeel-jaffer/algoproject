@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -59,23 +60,47 @@
         }
     </style>
 </head>
+
 <body>
     <h1>Prediction Results</h1>
-
     <table>
         <thead>
             <tr>
-                <th>SeqId</th>
-                <th>R site</th>
-                <th>Peptides</th>
-                <th>Prediction Score</th>
+                <th>Sequence ID</th>
+                <th>Peptide Sequence</th>
+                <th>Methylation Site</th>
+                <th>Score</th>
             </tr>
         </thead>
-        <tbody>
-            <!-- Add your table rows dynamically using JavaScript -->
+        <tbody id="resultTableBody">
+            <!-- The prediction results will be dynamically added here -->
         </tbody>
     </table>
 
-    <script src="prediction_results.js"></script>
+    <script>
+        // Retrieve the prediction results from the URL parameter
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const predictionResults = urlParams.get('results');
+
+        if (predictionResults) {
+            const data = JSON.parse(decodeURIComponent(predictionResults));
+
+            // Display the prediction results in the table
+            const tableBody = document.getElementById('resultTableBody');
+            tableBody.innerHTML = ''; // Clear previous results
+
+            data.forEach(item => {
+                const row = `<tr>
+                    <td>${item.sequence_id}</td>
+                    <td>${item.peptide_sequence}</td>
+                    <td>${item.methylation_site}</td>
+                    <td>${item.score}</td>
+                </tr>`;
+                tableBody.insertAdjacentHTML('beforeend', row);
+            });
+        }
+    </script>
 </body>
+
 </html>
