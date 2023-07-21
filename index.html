@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -9,16 +8,15 @@
     <style>
     </style>
 </head>
-
 <body>
     <nav class="navbar">
         <div class="navbar-brand">PRmePRed</div>
         <ul class="nav-links" id="navLinks">
-            <li><a href="/">Home</a></li>
-            <li><a href="/about.html">About</a></li>
-            <li><a href="/dataset.html">Dataset</a></li>
-            <li><a href="/help.html">Help</a></li>
-            <li><a href="/contact.html">Contact Us</a></li>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="dataset.html">Dataset</a></li>
+            <li><a href="help.html">Help</a></li>
+            <li><a href="contact.html">Contact Us</a></li>
         </ul>
         <div class="burger" onclick="toggleNav()">
             <div class="line1"></div>
@@ -39,7 +37,7 @@
         </ul>
         <textarea id="proteinSequences" rows="10" cols="50"></textarea>
         <label for="fastaFile">Select File:</label>
-        <input type="file" id="fastaFile" accept=".fasta">
+        <input type="file" id="fastaFile" accept=".fasta" onchange="handleFileSelect(event)">
         <label for="thresholdSelect">Select Threshold:</label>
         <input type="checkbox" id="enableThreshold" onchange="toggleThreshold()">
         <input type="number" id="thresholdSelect" step="0.01" min="0" max="1" value="0.5" disabled>
@@ -54,6 +52,17 @@
     </footer>
     <script src="index.js"></script>
     <script>
+        function handleFileSelect(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function (e) {
+                    const fileContent = e.target.result;
+                    document.getElementById("proteinSequences").value = fileContent;
+                };
+                reader.readAsText(file);
+            }
+        }
         function toggleThreshold() {
             const thresholdInput = document.getElementById("thresholdSelect");
             const enableThreshold = document.getElementById("enableThreshold").checked;
@@ -91,7 +100,7 @@ PSYGPPGVPPLYGPPMLMMPPPPAAMGPPGAPPGRDLASVPPELTASRQSFRMAMGNPSEFFVDVM`;
         function resetForm() {
             document.getElementById("proteinSequences").value = "";
             document.getElementById("thresholdSelect").value = "0.5";
-            // Add any other form elements to reset as needed
+            document.getElementById("fastaFile").value = "";
         }
     </script>
 </body>
