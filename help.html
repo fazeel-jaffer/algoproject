@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,39 +12,48 @@
             font-family: Arial, sans-serif;
             background-color: #f2f2f2;
         }
+
         header {
             background-color: #007BFF;
             color: #fff;
             padding: 10px;
         }
+
         .navbar {
             display: flex;
             align-items: center;
             justify-content: space-between;
         }
+
         .navbar-brand {
             font-size: 24px;
             font-weight: bold;
         }
+
         .nav-links {
             list-style: none;
             display: flex;
         }
+
         .nav-links li {
             margin-right: 20px;
         }
+
         .nav-links li a {
             text-decoration: none;
             color: #fff;
             font-size: 16px;
             transition: color 0.3s;
         }
+
         .nav-links li a:hover {
             color: #f8c947;
         }
+
         .burger {
             display: none;
         }
+
         .content {
             max-width: 800px;
             margin: 20px auto;
@@ -52,11 +62,13 @@
             box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
             border-radius: 5px;
         }
+
         .tips-section h2,
         .dataset-section h2,
         .supplementary-section h2 {
             margin-top: 0;
         }
+
         .tips-section ol,
         .dataset-section p,
         .supplementary-section p {
@@ -67,8 +79,31 @@
             list-style: decimal;
             padding-left: 20px;
         }
+        footer {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            width: 98%;
+            position: absolute;
+            bottom: 0;
+            left: 0;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Adjustments for smaller screens */
+        @media screen and (max-width: 600px) {
+            .footer-content {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
+
 <body>
     <header>
         <nav class="navbar">
@@ -102,6 +137,12 @@
             </p>
         </div>
     </div>
+    <footer>
+        <div class="footer-content">
+            <p>National Institute of Technology Srinagar</p>
+            <p>&copy; 2023 NIT Srinagar,J&K India.All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 
 </html>

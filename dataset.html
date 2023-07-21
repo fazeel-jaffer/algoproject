@@ -87,6 +87,26 @@
         .dataset-info h2 {
             margin-top: 20px;
         }
+
+        footer {
+            background-color: #007BFF;
+            color: #fff;
+            padding: 15px;
+            text-align: center;
+            width: 98%;
+        }
+
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        /* Adjustments for smaller screens */
+        @media screen and (max-width: 600px) {
+            .footer-content {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 
@@ -181,7 +201,7 @@
             <p>
                 Supplementary Information:<a href="/dow.doc" download>Download</a> &nbsp; &nbsp; &nbsp;
                 Datasets:<a href="dataset.zip" download>View</a>
-            </p> 
+            </p>
         </div>
         <div class="table-section">
             <h2>Table 1. Dataset information (after CD-HIT) of different window lengths</h2>
@@ -269,6 +289,12 @@
             </ol>
         </div>
     </div>
+    <footer>
+        <div class="footer-content">
+            <p>National Institute of Technology Srinagar</p>
+            <p>&copy; 2023 NIT Srinagar,J&K India.All rights reserved.</p>
+        </div>
+    </footer>
 </body>
 
 </html>
