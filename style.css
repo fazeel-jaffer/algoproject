@@ -162,3 +162,37 @@ button:hover {
         font-size: 14px;
     }
 }
+body {
+  margin: 0;
+  padding: 0;
+  font-family: Arial, sans-serif;
+  background-color: #f2f2f2;
+}
+.navbar {
+  margin-bottom: 20px;
+}
+.header-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 150px;
+  color: #007BFF;
+  text-align: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+  margin-top: 20px;
+  padding: 20px;
+}
+
+.header-text {
+  font-size: 40px;
+  font-weight: bold;
+  letter-spacing: 1px;
+  margin-top: 10px;
+}
+
+.header-subtext {
+  font-size: 25px;
+  font-weight: normal;
+  margin-top: 10px;
+}
